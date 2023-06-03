@@ -5,10 +5,18 @@ from typing import Optional
 from base64 import b64encode
 import os
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-app = FastAPI(docs_url='/')
+app = FastAPI(title="Falg API", docs_url='/')
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 client_id = os.getenv('SPOTIFY_CLIENT_ID')  # Your client id
 client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')  # Your secret
